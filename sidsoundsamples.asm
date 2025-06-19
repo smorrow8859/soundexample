@@ -8,10 +8,9 @@ VIC_RASTER_LINE = $D012
         * = $c000
 
         lda #147
-        jsr $e544
-        jsr Panel
-        jsr wave_mes
-        ;jsr NumValue
+        jsr $e544       ; Clear screen
+        jsr Panel       ; Draw background panel
+        jsr wave_mes    ; Draw "waveform" on the screen
 
         lda #15
         sta SB+24       ; Volume
@@ -135,6 +134,9 @@ TreatVolume
         sta SB+24
         rts
 
+; This subroutine utility uses
+; BCD to display digits on the screen
+
 NumValue
         lda #<1198
         sta 251
@@ -191,6 +193,9 @@ plotdigit
         sta (253),y                   ; write the color to color ram  
         dey
         rts
+
+; Draw the large background panel 
+; seen on the screen.
 
 Panel
         lda #<1070
